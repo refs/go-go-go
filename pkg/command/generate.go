@@ -11,7 +11,7 @@ import (
 	"github.com/gocarina/gocsv"
 	"github.com/google/go-github/v29/github"
 	"github.com/refs/go-go-go/pkg/config"
-	"github.com/refs/go-go-go/pkg/templates"
+	"github.com/refs/go-go-go/pkg/types"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/oauth2"
 )
@@ -60,8 +60,8 @@ func GenerateCommand(c *config.Config) *cli.Command {
 }
 
 // initStore parses the csv into a Go type
-func initStore(dst string) templates.Store {
-	s := templates.Store{}
+func initStore(dst string) types.Store {
+	s := types.Store{}
 	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		panic(err)
@@ -74,7 +74,7 @@ func initStore(dst string) templates.Store {
 	return s
 }
 
-func repoInfo(rec templates.Record) templates.Repository {
+func repoInfo(rec types.Record) types.Repository {
 	owner, repo := deconstruct(rec.URL)
 
 	ghrepo, _, err := client.Repositories.Get(context.Background(), owner, repo)
@@ -82,7 +82,7 @@ func repoInfo(rec templates.Record) templates.Repository {
 		log.Fatal(err)
 	}
 
-	r := templates.Repository{
+	r := types.Repository{
 		Name:        *ghrepo.Name,
 		Description: *ghrepo.Description,
 		Stars:       *ghrepo.StargazersCount,

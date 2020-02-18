@@ -1,4 +1,4 @@
-package templates
+package types
 
 import "github.com/google/go-github/v29/github"
 
