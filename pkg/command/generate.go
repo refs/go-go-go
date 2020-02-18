@@ -51,7 +51,7 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			repoStore := types.Repositories{}
 			store := initStore(c.String("src"))
 			for i := range store {
-				repoStore = append(repoStore, repoInfo(store[i]))
+				repoStore = append(repoStore, store[i].Expand(client))
 			}
 
 			temp := templates.Readme()
@@ -74,25 +74,4 @@ func initStore(dst string) types.Repositories {
 		log.Fatal(err)
 	}
 	return s
-}
-
-func repoInfo(r types.Repository) types.Repository {
-	owner, repo := r.Deconstruct()
-
-	ghrepo, _, err := client.Repositories.Get(context.Background(), owner, repo)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	v := types.Repository{
-		Name:        *ghrepo.Name,
-		Owner:       owner,
-		URL:         r.URL,
-		Category:    r.Category,
-		Description: *ghrepo.Description,
-		Stargazers:  *ghrepo.StargazersCount,
-		UpdatedAt:   ghrepo.GetUpdatedAt(),
-	}
-
-	return v
 }

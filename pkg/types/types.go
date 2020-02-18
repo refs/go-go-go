@@ -1,6 +1,7 @@
 package types
 
 import (
+	"context"
 	"log"
 	"net/url"
 	"strings"
@@ -31,6 +32,26 @@ func (r Repository) Deconstruct() (string, string) {
 	name := strings.Split(parsed.Path, "/")[2]
 
 	return owner, name
+}
+
+// Expand feeds the repository with information pulled from Github
+func (r Repository) Expand(c *github.Client) Repository {
+	owner, repo := r.Deconstruct()
+
+	ghrepo, _, err := c.Repositories.Get(context.Background(), owner, repo)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return Repository{
+		Name:        *ghrepo.Name,
+		Owner:       owner,
+		URL:         r.URL,
+		Category:    r.Category,
+		Description: *ghrepo.Description,
+		Stargazers:  *ghrepo.StargazersCount,
+		UpdatedAt:   ghrepo.GetUpdatedAt(),
+	}
 }
 
 // Repositories are parsed repos ready to feed the templates
