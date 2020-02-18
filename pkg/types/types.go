@@ -14,7 +14,9 @@ type Store []Record
 // Repository maps a repo information
 type Repository struct {
 	UpdatedAt   github.Timestamp // TODO make this human: Last update was X days/weeks/months/years ago
+	Owner       string
 	Name        string
+	URL         string
 	Description string
 	Stars       int
 }

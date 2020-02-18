@@ -2,7 +2,6 @@ package command
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/url"
 	"os"
@@ -11,6 +10,7 @@ import (
 	"github.com/gocarina/gocsv"
 	"github.com/google/go-github/v29/github"
 	"github.com/refs/go-go-go/pkg/config"
+	"github.com/refs/go-go-go/pkg/templates"
 	"github.com/refs/go-go-go/pkg/types"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/oauth2"
@@ -50,10 +50,14 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			return nil
 		},
 		Action: func(c *cli.Context) error {
+			repoStore := []types.Repository{}
 			store := initStore(c.String("src"))
 			for i := range store {
-				fmt.Printf("%+v\n", repoInfo(store[i]))
+				repoStore = append(repoStore, repoInfo(store[i]))
 			}
+
+			temp := templates.Readme()
+			temp.Execute(os.Stdout, repoStore)
 			return nil
 		},
 	}
@@ -84,6 +88,8 @@ func repoInfo(rec types.Record) types.Repository {
 
 	r := types.Repository{
 		Name:        *ghrepo.Name,
+		Owner:       owner,
+		URL:         rec.URL,
 		Description: *ghrepo.Description,
 		Stars:       *ghrepo.StargazersCount,
 		UpdatedAt:   ghrepo.GetUpdatedAt(),
