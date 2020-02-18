@@ -3,9 +3,7 @@ package command
 import (
 	"context"
 	"log"
-	"net/url"
 	"os"
-	"strings"
 
 	"github.com/gocarina/gocsv"
 	"github.com/google/go-github/v29/github"
@@ -78,37 +76,23 @@ func initStore(dst string) types.Repositories {
 	return s
 }
 
-func repoInfo(rec types.Repository) types.Repository {
-	owner, repo := deconstruct(rec.URL)
+func repoInfo(r types.Repository) types.Repository {
+	owner, repo := r.Deconstruct()
 
 	ghrepo, _, err := client.Repositories.Get(context.Background(), owner, repo)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	r := types.Repository{
+	v := types.Repository{
 		Name:        *ghrepo.Name,
 		Owner:       owner,
-		URL:         rec.URL,
-		Category:    rec.Category,
+		URL:         r.URL,
+		Category:    r.Category,
 		Description: *ghrepo.Description,
 		Stargazers:  *ghrepo.StargazersCount,
 		UpdatedAt:   ghrepo.GetUpdatedAt(),
 	}
 
-	return r
-}
-
-// returns the owner and repo name out of a github url
-// i.e: https://github.com/refs/go-go-go // {"refs", "go-go-go"}
-func deconstruct(rawurl string) (string, string) {
-	parsed, err := url.Parse(rawurl)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	owner := strings.Split(parsed.Path, "/")[1]
-	name := strings.Split(parsed.Path, "/")[2]
-
-	return owner, name
+	return v
 }

@@ -1,6 +1,10 @@
 package types
 
 import (
+	"log"
+	"net/url"
+	"strings"
+
 	"github.com/google/go-github/v29/github"
 )
 
@@ -13,6 +17,20 @@ type Repository struct {
 	Description string
 	Stargazers  int
 	UpdatedAt   github.Timestamp // TODO make this human: Last update was X days/weeks/months/years ago
+}
+
+// Deconstruct returns the owner and repo name out of a github url
+// i.e: https://github.com/refs/go-go-go // {"refs", "go-go-go"}
+func (r Repository) Deconstruct() (string, string) {
+	parsed, err := url.Parse(r.URL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	owner := strings.Split(parsed.Path, "/")[1]
+	name := strings.Split(parsed.Path, "/")[2]
+
+	return owner, name
 }
 
 // Repositories are parsed repos ready to feed the templates
