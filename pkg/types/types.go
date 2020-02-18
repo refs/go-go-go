@@ -1,6 +1,8 @@
 package types
 
-import "github.com/google/go-github/v29/github"
+import (
+	"github.com/google/go-github/v29/github"
+)
 
 // Record corresponds with a line from repos.csv (or source)
 type Record struct {
@@ -18,8 +20,21 @@ type Repository struct {
 	Name        string
 	URL         string
 	Description string
+	Category    string
 	Stargazers  int
 }
 
 // Repositories are parsed repos ready to feed the templates
 type Repositories []Repository
+
+// Categorize sorts repositories by it's declared category
+func (r Repositories) Categorize() map[string][]Repository {
+	ret := map[string][]Repository{}
+
+	for i := range r {
+		cat := r[i].Category
+		ret[cat] = append(ret[cat], r[i])
+	}
+
+	return ret
+}

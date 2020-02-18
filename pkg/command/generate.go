@@ -50,14 +50,14 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			return nil
 		},
 		Action: func(c *cli.Context) error {
-			repoStore := []types.Repository{}
+			repoStore := types.Repositories{}
 			store := initStore(c.String("src"))
 			for i := range store {
 				repoStore = append(repoStore, repoInfo(store[i]))
 			}
 
 			temp := templates.Readme()
-			temp.Execute(os.Stdout, repoStore)
+			temp.Execute(os.Stdout, repoStore.Categorize())
 			return nil
 		},
 	}
@@ -90,6 +90,7 @@ func repoInfo(rec types.Record) types.Repository {
 		Name:        *ghrepo.Name,
 		Owner:       owner,
 		URL:         rec.URL,
+		Category:    rec.Category,
 		Description: *ghrepo.Description,
 		Stargazers:  *ghrepo.StargazersCount,
 		UpdatedAt:   ghrepo.GetUpdatedAt(),
