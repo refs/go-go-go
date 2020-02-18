@@ -64,8 +64,8 @@ func GenerateCommand(c *config.Config) *cli.Command {
 }
 
 // initStore unmarshals the csv file
-func initStore(dst string) types.Store {
-	s := types.Store{}
+func initStore(dst string) types.Repositories {
+	s := types.Repositories{}
 	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm) // TODO bundle repos in categories and use this as template source
 	if err != nil {
 		panic(err)
@@ -78,7 +78,7 @@ func initStore(dst string) types.Store {
 	return s
 }
 
-func repoInfo(rec types.Record) types.Repository {
+func repoInfo(rec types.Repository) types.Repository {
 	owner, repo := deconstruct(rec.URL)
 
 	ghrepo, _, err := client.Repositories.Get(context.Background(), owner, repo)

@@ -12,7 +12,7 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 {{range $key, $value := . }}
 	- [{{$key}}](#{{$key}})
 {{end}}
-
+---
 {{range $key, $value := . }}
 ## {{ $key }}
 {{ range $value }}
