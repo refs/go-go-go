@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/refs/go-go-go/pkg/command"
-	"github.com/refs/go-go-go/pkg/command/config"
+	"github.com/refs/go-go-go/pkg/config"
 	"github.com/urfave/cli/v2"
 )
 

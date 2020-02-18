@@ -10,8 +10,8 @@ import (
 
 	"github.com/gocarina/gocsv"
 	"github.com/google/go-github/v29/github"
-	"github.com/refs/go-go-go/pkg/command/config"
-	"github.com/refs/go-go-go/pkg/command/templates"
+	"github.com/refs/go-go-go/pkg/config"
+	"github.com/refs/go-go-go/pkg/templates"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/oauth2"
 )
