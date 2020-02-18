@@ -63,10 +63,10 @@ func GenerateCommand(c *config.Config) *cli.Command {
 	}
 }
 
-// initStore parses the csv into a Go type
+// initStore unmarshals the csv file
 func initStore(dst string) types.Store {
 	s := types.Store{}
-	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm)
+	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm) // TODO bundle repos in categories and use this as template source
 	if err != nil {
 		panic(err)
 	}

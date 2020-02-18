@@ -8,7 +8,7 @@ const text = `
 Over the time I found starring repos is very sub-optimal when it comes to discovery, and so this project was born. A single file with the list of repositories to be tracked is used to generate the output. This small tool can be added as part of a Drone pipeline and generate your readme.
 
 {{range .}}
-	- [{{ .Owner }}/{{ .Name }}]({{ .URL }})
+	- [{{ .Owner }}/{{ .Name }}]({{ .URL }}) - {{ .Description }}
 	  - {{ .Stargazers }}⭐
 {{end}}
 `
