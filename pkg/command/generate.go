@@ -54,8 +54,8 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				repoStore = append(repoStore, store[i].Expand(client))
 			}
 
-			temp := templates.Readme()
-			temp.Execute(os.Stdout, repoStore.Categorize())
+			templates.Readme().Execute(repoStore, repoStore.Categorize())
+
 			return nil
 		},
 	}
@@ -64,7 +64,7 @@ func GenerateCommand(c *config.Config) *cli.Command {
 // initStore unmarshals the csv file
 func initStore(dst string) types.Repositories {
 	s := types.Repositories{}
-	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm) // TODO bundle repos in categories and use this as template source
+	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm)
 	if err != nil {
 		panic(err)
 	}

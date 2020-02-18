@@ -2,11 +2,21 @@ package types
 
 import (
 	"context"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/url"
+	"os"
+	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/google/go-github/v29/github"
+)
+
+const (
+	// DefaultFilename is the output file name
+	DefaultFilename = "README.md"
 )
 
 // Repository maps a repo information
@@ -73,4 +83,22 @@ func (r Repositories) Categorize() map[string][]Repository {
 	}
 
 	return ret
+}
+
+// Write implements io.Writer interface. Writes to README.md by default
+func (r Repositories) Write(p []byte) (n int, err error) {
+	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	dst := path.Join(dir, DefaultFilename)
+
+	fmt.Println(string(p))
+	err = ioutil.WriteFile(dst, p, 0777)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return len(p), nil
 }
