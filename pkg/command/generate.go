@@ -91,7 +91,7 @@ func repoInfo(rec types.Record) types.Repository {
 		Owner:       owner,
 		URL:         rec.URL,
 		Description: *ghrepo.Description,
-		Stars:       *ghrepo.StargazersCount,
+		Stargazers:  *ghrepo.StargazersCount,
 		UpdatedAt:   ghrepo.GetUpdatedAt(),
 	}
 

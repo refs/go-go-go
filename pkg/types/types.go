@@ -18,7 +18,7 @@ type Repository struct {
 	Name        string
 	URL         string
 	Description string
-	Stars       int
+	Stargazers  int
 }
 
 // Repositories are parsed repos ready to feed the templates
