@@ -20,6 +20,12 @@ type Repository struct {
 	UpdatedAt   github.Timestamp // TODO make this human: Last update was X days/weeks/months/years ago
 }
 
+// IRepo capture the basic operations on a repository
+type IRepo interface {
+	Deconstruct() (string, string)
+	Expand(*github.Client) Repository
+}
+
 // Deconstruct returns the owner and repo name out of a github url
 // i.e: https://github.com/refs/go-go-go // {"refs", "go-go-go"}
 func (r Repository) Deconstruct() (string, string) {
