@@ -69,9 +69,7 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				log.Fatal(err)
 			}
 
-			t.Execute(fd, repoStore.Categorize())
-
-			return nil
+			return t.Execute(fd, repoStore.Categorize())
 		},
 	}
 }
