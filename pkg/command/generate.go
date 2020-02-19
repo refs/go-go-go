@@ -38,6 +38,12 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				EnvVars: []string{"GOGO_REPOS_SRC"},
 				Value:   "repos.csv",
 			},
+			&cli.StringFlag{
+				Name:    "out",
+				Usage:   "Directory to write README.md",
+				Aliases: []string{"o"},
+				EnvVars: []string{"GOGO_OUT"},
+			},
 		},
 		Before: func(c *cli.Context) error {
 			ctx := context.Background()
