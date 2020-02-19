@@ -21,7 +21,7 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
   - 7648⭐
 
 - [micro/go-micro](https://github.com/micro/go-micro) - A Go microservices development framework
-  - 11681⭐
+  - 11682⭐
 
 - [go-kit/kit](https://github.com/go-kit/kit) - A standard library for microservices.
   - 16238⭐

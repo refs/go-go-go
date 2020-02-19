@@ -17,7 +17,10 @@ import (
 )
 
 var (
-	client *github.Client
+	client      *github.Client
+	baseDir     string
+	outFileName string
+	err         error
 )
 
 // GenerateCommand generates a README.md from sources
@@ -44,15 +47,33 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				Aliases: []string{"o"},
 				EnvVars: []string{"GOGO_OUT"},
 			},
+			&cli.StringFlag{
+				Name:    "filename",
+				Usage:   "Output file name",
+				Aliases: []string{"fn"},
+				EnvVars: []string{"GOGO_FILE_NAME"},
+				Value:   "README.md",
+			},
 		},
 		Before: func(c *cli.Context) error {
+			// Prepare github client
 			ctx := context.Background()
 			ts := oauth2.StaticTokenSource(
 				&oauth2.Token{AccessToken: c.String("token")},
 			)
 			tc := oauth2.NewClient(ctx, ts)
-
 			client = github.NewClient(tc)
+
+			// prepare gogogo baseDir
+			if len(c.String("out")) > 0 {
+				baseDir = c.String("out")
+			} else {
+				baseDir, err = filepath.Abs(filepath.Dir(os.Args[0]))
+				if err != nil {
+					log.Fatal(err)
+				}
+			}
+
 			return nil
 		},
 		Action: func(c *cli.Context) error {
@@ -62,20 +83,15 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				repoStore = append(repoStore, store[i].Expand(client))
 			}
 
-			t := templates.Readme()
-			dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+			dst := path.Join(baseDir, c.String("filename"))
+
+			f, err := os.Create(dst)
 			if err != nil {
 				log.Fatal(err)
 			}
+			defer f.Close()
 
-			dst := path.Join(dir, types.DefaultFilename)
-
-			fd, err := os.OpenFile(dst, os.O_CREATE|os.O_WRONLY, 0644)
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			return t.Execute(fd, repoStore.Categorize())
+			return templates.Readme().Execute(f, repoStore.Categorize())
 		},
 	}
 }
