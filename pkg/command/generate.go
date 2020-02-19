@@ -57,7 +57,6 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			}
 
 			t := templates.Readme()
-
 			dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 			if err != nil {
 				log.Fatal(err)

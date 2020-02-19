@@ -27,29 +27,37 @@ type Repository struct {
 
 // IRepo capture the basic operations on a repository
 type IRepo interface {
-	Deconstruct() (string, string)
+	ROwner() string
+	RName() string
 	Expand(*github.Client) Repository
 }
 
-// Deconstruct returns the owner and repo name out of a github url
-// i.e: https://github.com/refs/go-go-go // {"refs", "go-go-go"}
-func (r Repository) Deconstruct() (string, string) {
+// ROwner returns the Github repository owner's name
+func (r Repository) ROwner() string {
 	parsed, err := url.Parse(r.URL)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	owner := strings.Split(parsed.Path, "/")[1]
-	name := strings.Split(parsed.Path, "/")[2]
+	return strings.Split(parsed.Path, "/")[1]
+}
 
-	return owner, name
+// RName returns the Github repository name
+func (r Repository) RName() string {
+	parsed, err := url.Parse(r.URL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return strings.Split(parsed.Path, "/")[2]
 }
 
 // Expand feeds the repository with information pulled from Github
 func (r Repository) Expand(c *github.Client) Repository {
-	owner, repo := r.Deconstruct()
+	owner := r.ROwner()
+	name := r.RName()
 
-	ghrepo, _, err := c.Repositories.Get(context.Background(), owner, repo)
+	ghrepo, _, err := c.Repositories.Get(context.Background(), owner, name)
 	if err != nil {
 		log.Fatal(err)
 	}
