@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"os"
+	"path"
+	"path/filepath"
 
 	"github.com/gocarina/gocsv"
 	"github.com/google/go-github/v29/github"
@@ -54,7 +56,21 @@ func GenerateCommand(c *config.Config) *cli.Command {
 				repoStore = append(repoStore, store[i].Expand(client))
 			}
 
-			templates.Readme().Execute(repoStore, repoStore.Categorize())
+			t := templates.Readme()
+
+			dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			dst := path.Join(dir, types.DefaultFilename)
+
+			fd, err := os.OpenFile(dst, os.O_CREATE|os.O_WRONLY, 0644)
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			t.Execute(fd, repoStore.Categorize())
 
 			return nil
 		},
