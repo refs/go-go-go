@@ -67,8 +67,8 @@ func (r Repository) Expand(c *github.Client) Repository {
 		Owner:       owner,
 		URL:         r.URL,
 		Category:    r.Category,
-		Description: *ghrepo.Description,
-		Stargazers:  *ghrepo.StargazersCount,
+		Description: ghrepo.GetDescription(),
+		Stargazers:  ghrepo.GetStargazersCount(),
 		UpdatedAt:   ghrepo.GetUpdatedAt(),
 	}
 }
