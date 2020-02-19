@@ -8,14 +8,14 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 ## Index 🔎
 {{range $key, $value := . }}
-	- [{{$key}}](#{{$key}})
+- [{{$key}}](#{{$key}})
 {{end}}
 ---
 {{range $key, $value := . }}
 ## {{ $key }}
 {{ range $value }}
-	- [{{ .Owner }}/{{ .Name }}]({{ .URL }}) - {{ .Description }}
-	  - {{ .Stargazers }}⭐
+- [{{ .Owner }}/{{ .Name }}]({{ .URL }}) - {{ .Description }}
+  - {{ .Stargazers }}⭐
 {{end}}{{end}}`
 
 // Readme returns a readme template ready to be compiled

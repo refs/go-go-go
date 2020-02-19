@@ -70,12 +70,12 @@ type Repositories []Repository
 
 // Categorize sorts repositories by it's declared category
 func (r Repositories) Categorize() map[string][]Repository {
-	ret := map[string][]Repository{}
+	repo := map[string][]Repository{}
 
 	for i := range r {
-		cat := r[i].Category
-		ret[cat] = append(ret[cat], r[i])
+		cat := strings.ReplaceAll(r[i].Category, " ", "_")
+		repo[cat] = append(repo[cat], r[i])
 	}
 
-	return ret
+	return repo
 }

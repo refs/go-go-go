@@ -4,12 +4,12 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 ## Index 🔎
 
-	- [Error Handling](#Error Handling)
+- [Error_Handling](#Error_Handling)
 
 ---
 
-## Error Handling
+## Error_Handling
 
-	- [rotisserie/eris](https://github.com/rotisserie/eris) - eris provides a better way to handle, trace, and log errors in Go 🎆
-	  - 567⭐
+- [rotisserie/eris](https://github.com/rotisserie/eris) - eris provides a better way to handle, trace, and log errors in Go 🎆
+  - 567⭐
 
