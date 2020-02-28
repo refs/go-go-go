@@ -1,6 +1,9 @@
 package templates
 
-import "text/template"
+import (
+	"net/url"
+	"text/template"
+)
 
 const text = `# Go-Go-Go Is a collection of sources I find, as well as a way of keeping it visible and categorized
 
@@ -8,7 +11,7 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 ## Index 🔎
 {{range $key, $value := . }}
-- [{{$key}}](#{{$key}})
+- [{{$key}}](#{{pathEscape $key}})
 {{end}}
 ---
 {{range $key, $value := . }}
@@ -20,5 +23,9 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 // Readme returns a readme template ready to be compiled
 func Readme() *template.Template {
-	return template.Must(template.New("readme").Parse(text))
+	fnMap := template.FuncMap{
+		"pathEscape": url.PathEscape,
+	}
+
+	return template.Must(template.New("readme").Funcs(fnMap).Parse(text))
 }
