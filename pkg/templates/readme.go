@@ -1,7 +1,7 @@
 package templates
 
 import (
-	"net/url"
+	"strings"
 	"text/template"
 )
 
@@ -11,7 +11,7 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 ## Index 🔎
 {{range $key, $value := . }}
-- [{{$key}}](#{{pathEscape $key}})
+- [{{$key}}](#{{kebap $key}})
 {{end}}
 ---
 {{range $key, $value := . }}
@@ -24,7 +24,9 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 // Readme returns a readme template ready to be compiled
 func Readme() *template.Template {
 	fnMap := template.FuncMap{
-		"pathEscape": url.PathEscape,
+		"kebap": func(s string) string {
+			return strings.ToLower(strings.ReplaceAll(s, " ", "-"))
+		},
 	}
 
 	return template.Must(template.New("readme").Funcs(fnMap).Parse(text))
