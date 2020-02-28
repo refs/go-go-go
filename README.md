@@ -6,16 +6,16 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 - [Automation](#Automation)
 
-- [Error_Handling](#Error_Handling)
+- [Error Handling](#Error%20Handling)
 
 ---
 
 ## Automation
 
 - [Hammerspoon/hammerspoon](https://github.com/Hammerspoon/hammerspoon) - Staggeringly powerful macOS desktop automation with Lua
-  - 6423⭐
+  - 6432⭐
 
-## Error_Handling
+## Error Handling
 
 - [rotisserie/eris](https://github.com/rotisserie/eris) - eris provides a better way to handle, trace, and log errors in Go 🎆
   - 571⭐
