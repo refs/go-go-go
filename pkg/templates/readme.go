@@ -1,7 +1,6 @@
 package templates
 
 import (
-	"strings"
 	"text/template"
 )
 
@@ -23,11 +22,5 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 // Readme returns a readme template ready to be compiled
 func Readme() *template.Template {
-	fnMap := template.FuncMap{
-		"kebap": func(s string) string {
-			return strings.ToLower(strings.ReplaceAll(s, " ", "-"))
-		},
-	}
-
 	return template.Must(template.New("readme").Funcs(fnMap).Parse(text))
 }
