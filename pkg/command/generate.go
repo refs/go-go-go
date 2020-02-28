@@ -94,7 +94,6 @@ func GenerateCommand(c *config.Config) *cli.Command {
 	}
 }
 
-// initStore unmarshals the csv file
 func initStore(dst string) types.Repositories {
 	s := types.Repositories{}
 	repos, err := os.OpenFile(dst, os.O_RDWR|os.O_CREATE, os.ModePerm)
