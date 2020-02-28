@@ -4,9 +4,9 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 ## Index 🔎
 
-- [Automation](#Automation)
+- [Automation](#automation)
 
-- [Error Handling](#Error%20Handling)
+- [Error Handling](#error-handling)
 
 ---
 
