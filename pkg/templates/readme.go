@@ -20,7 +20,7 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
   - {{ .Stargazers }}⭐
 {{end}}{{end}}`
 
-// Readme returns a readme template ready to be compiled
+// Readme returns a readme template ready to be executed
 func Readme() *template.Template {
 	return template.Must(template.New("readme").Funcs(fnMap).Parse(text))
 }
