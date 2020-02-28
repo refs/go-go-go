@@ -81,8 +81,7 @@ func (r Repositories) Categorize() map[string][]Repository {
 	repo := map[string][]Repository{}
 
 	for i := range r {
-		cat := strings.ReplaceAll(r[i].Category, " ", "_")
-		repo[cat] = append(repo[cat], r[i])
+		repo[r[i].Category] = append(repo[r[i].Category], r[i])
 	}
 
 	return repo
