@@ -56,7 +56,6 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			},
 		},
 		Before: func(c *cli.Context) error {
-			// Prepare github client
 			ctx := context.Background()
 			ts := oauth2.StaticTokenSource(
 				&oauth2.Token{AccessToken: c.String("token")},
@@ -64,7 +63,6 @@ func GenerateCommand(c *config.Config) *cli.Command {
 			tc := oauth2.NewClient(ctx, ts)
 			client = github.NewClient(tc)
 
-			// prepare gogogo baseDir
 			if len(c.String("out")) > 0 {
 				baseDir = c.String("out")
 			} else {
