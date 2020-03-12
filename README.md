@@ -6,6 +6,8 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 
 - [Automation](#automation)
 
+- [Conventions](#conventions)
+
 - [Error Handling](#error-handling)
 
 ---
@@ -13,9 +15,14 @@ Over the time I found starring repos is very sub-optimal when it comes to discov
 ## Automation
 
 - [Hammerspoon/hammerspoon](https://github.com/Hammerspoon/hammerspoon) - Staggeringly powerful macOS desktop automation with Lua
-  - 6432⭐
+  - 6484⭐
+
+## Conventions
+
+- [conventional-commits/conventionalcommits.org](https://github.com/conventional-commits/conventionalcommits.org) - The conventional commits specification
+  - 1793⭐
 
 ## Error Handling
 
 - [rotisserie/eris](https://github.com/rotisserie/eris) - eris provides a better way to handle, trace, and log errors in Go 🎆
-  - 571⭐
+  - 578⭐
