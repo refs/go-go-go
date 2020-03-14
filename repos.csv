@@ -1,4 +1,5 @@
 url,category
-https://github.com/rotisserie/eris,Error Handling
-https://github.com/Hammerspoon/hammerspoon,Automation
+https://github.com/rotisserie/eris,Errors
+https://github.com/Hammerspoon/hammerspoon,Tools
 https://github.com/conventional-commits/conventionalcommits.org,Conventions
+https://github.com/rakyll/gotest,Tools
